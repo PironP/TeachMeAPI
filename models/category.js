@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes){
 			autoIncrement: true
 		},
 		nom: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {

@@ -6,23 +6,23 @@ module.exports = function(sequelize, DataTypes){
 			autoIncrement: true
 		},
 		LastName: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		FirstName: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		Email: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		Password: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		Tel: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
