@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes){
 			autoIncrement: true
 		},
 		Name: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		Adresse: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		CoordX: {
@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes){
 			allowNull: true
 		},
 		Tel: {
-			type: DataTypes.VARCHAR,
+			type: DataTypes.STRING,
 			allowNull: true
 		},
 		IsAssos: {
