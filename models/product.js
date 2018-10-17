@@ -26,11 +26,5 @@ module.exports = function(sequelize, DataTypes){
 		timestamps: false,
 		freezeTableName: true
 	});
-	product.associate = _associate;
 	return product;
-}
-
-function _associate(models){
-	models.category.belongsToMany(models.Command, { through: models.product, foreignKey: 'Id_Categorie', targetKey: 'Id_category'})
-	models.deposit.belongsToMany(models.Command, { through: models.product, foreignKey: 'Id_Stockage', targetKey: 'Id_deposit'})
 }

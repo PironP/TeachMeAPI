@@ -28,4 +28,20 @@ depositRouter.get('/', function(req,res){
 	})
 });
 
+depositRouter.get('/byId', function(req,res){
+	if(req.query.id === undefined){
+		console.log("No id sent");
+		res.status(400).end();
+    	return;
+	}
+	DepositController.getById(req.query.id)
+	.then((info) => {
+		res.json(info);
+	})
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+});
+
 module.exports = depositRouter;
