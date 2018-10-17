@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const models = require('./models');
-const routes = require('./routes');
+const ModelIndex = require('./models');
+const RouteManager = require('./routes');
 const config = require('./config');
 
 
@@ -11,12 +11,11 @@ _startServer();
 // INTERNAL
 
 function _startServer() {
-
     const app = express();
 
-    //RouteManager.attach(app);
+    RouteManager.attach(app);
 
-    app.listen(8080, function() {
-        console.log('Server started on ' + 8080 + '...');
+    app.listen(config.api.port, function() {
+        console.log('Server started on ' + config.api.port + '...');
     });
 }
