@@ -18,7 +18,7 @@ depositRouter.get('/', function(req,res){
 		res.status(400).end();
     	return;
 	}
-	DepositController.getAll(req.query.coX, req.query.coY)
+	DepositController.getAll(parseFloat(req.query.coX), parseFloat(req.query.coY))
 	.then((deposits) => {
 		res.json(deposits);
 	})
