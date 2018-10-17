@@ -24,6 +24,7 @@ DepositController.getAll = function(X, Y) {
 DepositController.getById = function(id) {
   const where = {};
   const options = {};
+  var result;
   where.Id_deposit = {
     [Op.eq]: id,
   }
@@ -39,8 +40,20 @@ DepositController.getById = function(id) {
       [Op.eq]: deposit[0].Id_deposit
     }
     options.where = where;
-    deposit[0].products = Product.findAll(options);
-    return deposit;
+    return Product.findAll(options)
+    .then((product) => {
+      result = {};
+      result.Id_deposit = deposit[0].Id_deposit;
+      result.Name = deposit[0].Name;
+      result.Adresse = deposit[0].Adresse;
+      result.CoordX = deposit[0].CoordX;
+      result.CoordY = deposit[0].CoordY;
+      result.Tel = deposit[0].Tel;
+      result.IsAssos = deposit[0].IsAssos;
+      result.admin = deposit[0].admin;
+      result.product = product;
+      return result;
+    })
   });
 };
 
