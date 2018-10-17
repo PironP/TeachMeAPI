@@ -1,14 +1,22 @@
-const http = require('http');
+'use strict';
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const express = require('express');
+const models = require('./models');
+const routes = require('./routes');
+const config = require('./config');
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Salut :)\n');
-});
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+_startServer();
+
+// INTERNAL
+
+function _startServer() {
+
+    const app = express();
+
+    //RouteManager.attach(app);
+
+    app.listen(8080, function() {
+        console.log('Server started on ' + 8080 + '...');
+    });
+}
