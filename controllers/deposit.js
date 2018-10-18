@@ -92,7 +92,14 @@ DepositController.update = function(id, Name, Adresse, CoordX, CoordY, Tel, IsAs
   if(admin !== undefined){
     options.admin = admin;
   }
-  return Product.update(options, {returning: true, where: {Id_deposit: id}});
+  return Deposit.update(options, {returning: true, where: {Id_deposit: id}});
+}
+
+DepositController.delete = function(id){
+  return Deposit.destroy({where: {Id_deposit: id}})
+  .then(function(product){
+    Product.destroy({where: {Id_Stockage: id}});
+  });
 }
 
 module.exports = DepositController;

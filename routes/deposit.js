@@ -78,7 +78,7 @@ depositRouter.post('/update', function(req, res){
 		res.status(400).end();
 		return;
 	}
-	DepositController.update(req.body.name, req.body.adresse, req.body.coordX, req.body.coordY, req.body.tel, req.body.isAssos, req.body.admin)
+	DepositController.update(req.body.id, req.body.name, req.body.adresse, req.body.coordX, req.body.coordY, req.body.tel, req.body.isAssos, req.body.admin)
 	.catch((err) =>{
 		console.log(err);
 		res.status(500).end();
@@ -86,14 +86,13 @@ depositRouter.post('/update', function(req, res){
 	res.status(204).end();
 });
 
-/*
-depositRouter.post('/delete', Admin.verifyToken, function(req, res){
+depositRouter.post('/delete', function(req, res){
 	if(req.body.id === undefined){
 		res.status(400).end();
 		return;
 	}
-	ProductController.delete(req.body.id)
+	DepositController.delete(req.body.id)
 	res.status(204).end();
-});*/
+});
 
 module.exports = depositRouter;
