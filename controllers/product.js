@@ -40,7 +40,7 @@ productController.getAll = function(search) {
   const options = {};
   if(search !== undefined){
     where.name =  {
-    [Op.like]: search, 
+    [Op.like]: "%"+search+"%", 
     } 
   }
   options.where = where;
