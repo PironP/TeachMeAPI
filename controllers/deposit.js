@@ -40,7 +40,7 @@ DepositController.getAll = function(X, Y) {
         for(j = 0; j < horaire.length; j++){        
           if(all[i].Id_deposit === horaire[j].Id_deposit){
             all[i].horaire = [];
-            all[i].horaire = horaire[j];
+            all[i].horaire.push(horaire[j]);
             break;
           }
         }
