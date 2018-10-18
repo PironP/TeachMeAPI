@@ -3,6 +3,7 @@ const func = require('../func');
 const fs = require('fs');
 const Deposit = ModelIndex.deposit;
 const Product = ModelIndex.product;
+const Horaire = ModelIndex.horaire;
 const Op = ModelIndex.Sequelize.Op;
 
 const DepositController = function(){};
@@ -10,6 +11,7 @@ const DepositController = function(){};
 DepositController.getAll = function(X, Y) {
   const where = {};
   const options = {};
+  var all;
 
   //tests
   //console.log(func.toRadian(30));
@@ -25,7 +27,32 @@ DepositController.getAll = function(X, Y) {
     [Op.gt]: Y-500,
   }
   options.where = where;
-  return Deposit.findAll(options);
+  return Deposit.findAll(options)
+  .then((result) => {
+    return Horaire.findAll()
+    .then((horaire) => {
+      all = [];
+      for(i = 0; i < result.length; i++){
+        all[i] = {};
+        all[i].Id_deposit = result[i].Id_deposit;
+        all[i].Name = result[i].Name;
+        all[i].Adresse = result[i].Adresse;
+        all[i].CoordX = result[i].CoordX;
+        all[i].Coordy = result[i].Coordy;
+        all[i].Tel = result[i].Tel;
+        all[i].IsAssos = result[i].IsAssos;
+        all[i].admin = result[i].admin;
+        for(j = 0; j < horaire.length; j++){        
+          if(all[i].Id_deposit === horaire[j].Id_deposit){
+            all[i].horaire = [];
+            all[i].horaire = horaire[j];
+            break;
+          }
+        }
+      }
+      return all;
+    });
+  });
 };
 
 DepositController.getById = function(id) {
@@ -49,17 +76,27 @@ DepositController.getById = function(id) {
     options.where = where;
     return Product.findAll(options)
     .then((product) => {
-      result = {};
-      result.Id_deposit = deposit[0].Id_deposit;
-      result.Name = deposit[0].Name;
-      result.Adresse = deposit[0].Adresse;
-      result.CoordX = deposit[0].CoordX;
-      result.CoordY = deposit[0].CoordY;
-      result.Tel = deposit[0].Tel;
-      result.IsAssos = deposit[0].IsAssos;
-      result.admin = deposit[0].admin;
-      result.product = product;
-      return result;
+        const where = {};
+        const options = {};
+        where.Id_deposit = {
+          [Op.eq]: deposit[0].Id_deposit
+        }
+        options.where = where;
+        return Horaire.findAll(options)
+        .then((total) => {
+          result = {};
+          result.Id_deposit = deposit[0].Id_deposit;
+          result.Name = deposit[0].Name;
+          result.Adresse = deposit[0].Adresse;
+          result.CoordX = deposit[0].CoordX;
+          result.CoordY = deposit[0].CoordY;
+          result.Tel = deposit[0].Tel;
+          result.IsAssos = deposit[0].IsAssos;
+          result.admin = deposit[0].admin;
+          result.product = product;
+          result.horaire = total;
+          return result;
+        })
     })
   });
 };
