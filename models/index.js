@@ -12,8 +12,8 @@ ModelIndex.getModel = function (modelName) {
     return this[modelName];
 };
 
-const sequelize = new Sequelize('teach_me', 'root', '', {
-  host: 'localhost',
+const sequelize = new Sequelize('u414096900_teach', 'u414096900_troot', 'rootroot', {
+  host: 'sql133.main-hosting.eu',
   dialect: 'mysql',
   port: 3306,
   operatorsAliases: Op

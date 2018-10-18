@@ -57,4 +57,17 @@ DepositController.getById = function(id) {
   });
 };
 
+DepositController.add = function(Name, Adresse, CoordX, CoordY, Tel, IsAssos, admin){
+  return Deposit.create({
+    Name: Name,
+    Adresse: Adresse,
+    CoordX: CoordX,
+    CoordY: CoordY,
+    Tel: Tel,
+    IsAssos: IsAssos,
+    admin: admin
+  });
+};
+
+
 module.exports = DepositController;
