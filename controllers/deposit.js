@@ -69,5 +69,27 @@ DepositController.add = function(Name, Adresse, CoordX, CoordY, Tel, IsAssos, ad
   });
 };
 
+/*ProductController.update = function(id, Name, Adresse, CoordX, CoordY, Tel, IsAssos, admin){
+  const options = {}
+  if(Name !== undefined){
+    options.Name = Name;
+  }
+  if(Adresse !== undefined){
+    options.Adresse = Adresse;
+  }
+  if(highlight !== undefined){
+    options.highlight = highlight;
+  }
+  if(category !== undefined){
+    options.category = category;
+  }
+  if(available !== undefined){
+    options.available = available;
+  }
+  if(id_promotion !== undefined){
+    options.id_promotion = id_promotion;
+  }
+  return Product.update(options, {returning: true, where: {Id_deposit: id}});
+}*/
 
 module.exports = DepositController;
