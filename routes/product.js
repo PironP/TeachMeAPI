@@ -8,7 +8,19 @@ const ProductController = controllers.ProductController;
 const productRouter = express.Router();
 productRouter.use(bodyParser.json());
 
+
 productRouter.get('/', function(req,res){
+	ProductController.getAll()
+	.then((products) => {
+		res.json(products);
+	})
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+});
+
+productRouter.get('/byId', function(req,res){
 	if(req.query.id === undefined){
 		console.log("No id_product sent");
 		res.status(400).end();
@@ -24,4 +36,35 @@ productRouter.get('/', function(req,res){
 	})
 });
 
+productRouter.get('/byIdCategory', function(req,res){
+	if(req.query.id === undefined){
+		console.log("No id_Category sent");
+		res.status(400).end();
+    	return;
+	}
+	ProductController.getByIdCategory(req.query.id)
+	.then((products) => {
+		res.json(products);
+	})
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+});
+
+productRouter.get('/byIdDeposit', function(req,res){
+	if(req.query.id === undefined){
+		console.log("No id_Deposit sent");
+		res.status(400).end();
+    	return;
+	}
+	ProductController.getByIdDeposit(req.query.id)
+	.then((products) => {
+		res.json(products);
+	})
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+});
 module.exports = productRouter;
