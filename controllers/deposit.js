@@ -8,23 +8,18 @@ const Op = ModelIndex.Sequelize.Op;
 const DepositController = function(){};
 
 DepositController.getAll = function(X, Y) {
-  const options = {};
-
-  //tests
-  //console.log(func.toRadian(X));
-  //console.log(func.getDist(X, Y,));
-  //var distance = func.getDist(X, Y, where.CoorX, where.CoordY, "K");
+  
   return Deposit.findAll().then(function(res){
     var len = res.length;
-    var i=0;
-    var distance=0;
+
+    var distance;
     var finalRes = [];
 
-    for(i; i<len; i++){
+    for(var i=0; i<len; i++){
         distance = func.getDist(X, Y, res[i].CoordX, res[i].CoordY);
-        console.log(distance+"KM");
+        //console.log(distance+"KM");
         if (distance<0.5){
-          console.log("OK");
+          //console.log("OK");
           finalRes.push(res[i]);
         }
     }
