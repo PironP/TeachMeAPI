@@ -24,6 +24,10 @@ module.exports = function(sequelize, DataTypes){
 		Tel: {
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		Admin: {
+			type: DataTypes.TINYINT,
+			allowNull: true
 		}
 	}, {
 		underscored: true,

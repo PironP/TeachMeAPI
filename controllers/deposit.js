@@ -1,5 +1,5 @@
 const ModelIndex = require('../models');
-const func = require('../func');
+const func = require('../func.js');
 const fs = require('fs');
 const Deposit = ModelIndex.deposit;
 const Product = ModelIndex.product;
@@ -12,36 +12,30 @@ DepositController.getAll = function(X, Y) {
   const where = {};
   const options = {};
   var all;
-
-  //tests
-  //console.log(func.toRadian(30));
-  //var distance = func.getDist(X, Y);
-
-  //console.log(distance);
-  where.CoordX = {
-    [Op.lt]: X+500,
-    [Op.gt]: X-500,
-  }
-  where.CoordY = {
-    [Op.lt]: Y+500,
-    [Op.gt]: Y-500,
-  }
-  options.where = where;
-  return Deposit.findAll(options)
-  .then((result) => {
+  var distance;
+  var finalRes = [];
+  
+  return Deposit.findAll().then(function(res){
+    var len = res.length;
+    for(var i=0; i<len; i++){
+        distance = func.getDist(X, Y, res[i].CoordX, res[i].CoordY);
+        if (distance<0.5){
+          finalRes.push(res[i]);
+        }
+    }
     return Horaire.findAll()
     .then((horaire) => {
       all = [];
-      for(i = 0; i < result.length; i++){
+      for(i = 0; i < finalRes.length; i++){
         all[i] = {};
-        all[i].Id_deposit = result[i].Id_deposit;
-        all[i].Name = result[i].Name;
-        all[i].Adresse = result[i].Adresse;
-        all[i].CoordX = result[i].CoordX;
-        all[i].Coordy = result[i].Coordy;
-        all[i].Tel = result[i].Tel;
-        all[i].IsAssos = result[i].IsAssos;
-        all[i].admin = result[i].admin;
+        all[i].Id_deposit = finalRes[i].Id_deposit;
+        all[i].Name = finalRes[i].Name;
+        all[i].Adresse = finalRes[i].Adresse;
+        all[i].CoordX = finalRes[i].CoordX;
+        all[i].Coordy = finalRes[i].Coordy;
+        all[i].Tel = finalRes[i].Tel;
+        all[i].IsAssos = finalRes[i].IsAssos;
+        all[i].admin = finalRes[i].admin;
         for(j = 0; j < horaire.length; j++){        
           if(all[i].Id_deposit === horaire[j].Id_deposit){
             all[i].horaire = [];
