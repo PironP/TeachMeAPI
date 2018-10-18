@@ -5,7 +5,7 @@ var config = {};
 //Webservice configuration
 config.api = {};
 config.api.dir = process.env.APP_DIR || 'C:/Users/Sebremy/Documents/GitHub/TeachMeAPI/';
-config.api.port = '8080';
+config.api.port = process.env.PORT || '8080';
 
 //Database configuration
 config.db = {};
