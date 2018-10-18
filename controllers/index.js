@@ -1,4 +1,5 @@
 module.exports = {
   	DepositController: require('./deposit'),
-  	ProductController: require('./product')
+	  ProductController: require('./product'),
+	  categoryController: require('./category'),
 }
