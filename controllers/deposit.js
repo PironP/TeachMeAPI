@@ -1,5 +1,5 @@
 const ModelIndex = require('../models');
-const func = require('../func');
+const func = require('../func.js');
 const fs = require('fs');
 const Deposit = ModelIndex.deposit;
 const Product = ModelIndex.product;
@@ -8,24 +8,28 @@ const Op = ModelIndex.Sequelize.Op;
 const DepositController = function(){};
 
 DepositController.getAll = function(X, Y) {
-  const where = {};
   const options = {};
 
   //tests
-  //console.log(func.toRadian(30));
-  //var distance = func.getDist(X, Y);
+  //console.log(func.toRadian(X));
+  //console.log(func.getDist(X, Y,));
+  //var distance = func.getDist(X, Y, where.CoorX, where.CoordY, "K");
+  return Deposit.findAll().then(function(res){
+    var len = res.length;
+    var i=0;
+    var distance=0;
+    var finalRes = [];
 
-  //console.log(distance);
-  where.CoordX = {
-    [Op.lt]: X+500,
-    [Op.gt]: X-500,
-  }
-  where.CoordY = {
-    [Op.lt]: Y+500,
-    [Op.gt]: Y-500,
-  }
-  options.where = where;
-  return Deposit.findAll(options);
+    for(i; i<len; i++){
+        distance = func.getDist(X, Y, res[i].CoordX, res[i].CoordY);
+        console.log(distance+"KM");
+        if (distance<0.5){
+          console.log("OK");
+          finalRes.push(res[i]);
+        }
+    }
+    return finalRes;
+  });
 };
 
 DepositController.getById = function(id) {
