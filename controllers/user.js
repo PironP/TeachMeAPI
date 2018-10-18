@@ -52,7 +52,7 @@ userController.signIn = function(userParam){
     });
 }
 
-    ²userController.update = function(userParam){
+    userController.update = function(userParam){
     return User.findOne({
         where: {
             Email: userParam.email,
