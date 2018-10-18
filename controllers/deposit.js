@@ -4,6 +4,7 @@ const fs = require('fs');
 const Deposit = ModelIndex.deposit;
 const Product = ModelIndex.product;
 const Horaire = ModelIndex.horaire;
+const Category = ModelIndex.category;
 const Op = ModelIndex.Sequelize.Op;
 
 const DepositController = function(){};
@@ -70,14 +71,16 @@ DepositController.getById = function(id) {
     options.where = where;
     return Product.findAll(options)
     .then((product) => {
-        const where = {};
-        const options = {};
-        where.Id_deposit = {
-          [Op.eq]: deposit[0].Id_deposit
-        }
-        options.where = where;
-        return Horaire.findAll(options)
-        .then((total) => {
+      const where = {};
+      const options = {};
+      where.Id_deposit = {
+        [Op.eq]: deposit[0].Id_deposit
+      }
+      options.where = where;
+      return Horaire.findAll(options)
+      .then((hor) => {
+        return Category.findAll()
+        .then((cat) => {
           result = {};
           result.Id_deposit = deposit[0].Id_deposit;
           result.Name = deposit[0].Name;
@@ -87,10 +90,26 @@ DepositController.getById = function(id) {
           result.Tel = deposit[0].Tel;
           result.IsAssos = deposit[0].IsAssos;
           result.admin = deposit[0].admin;
-          result.product = product;
-          result.horaire = total;
+          result.product = [];
+          for(i = 0; i < product.length; i++){
+            result.product[i] = {};
+            result.product[i].Id_Product = product[i].Id_Product;
+            result.product[i].Name = product[i].Name;
+            result.product[i].Photo = product[i].Photo;
+            result.product[i].Description = product[i].Description;
+            result.product[i].Id_Categorie = product[i].Id_Categorie;
+            result.product[i].Id_Stockage = product[i].Id_Stockage;
+            for(j = 0; j < cat.length; j++){
+              if(result.product[i].Id_Categorie === cat[j].Id_category){
+                result.product[i].categorie = "";
+                result.product[i].categorie = cat[j].nom;
+              }              
+            }
+          }
+          result.horaire = hor;
           return result;
-        })
+        })          
+      })
     })
   });
 };
