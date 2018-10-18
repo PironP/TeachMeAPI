@@ -8,6 +8,18 @@ const ProductController = controllers.ProductController;
 const productRouter = express.Router();
 productRouter.use(bodyParser.json());
 
+
+productRouter.get('/', function(req,res){
+	ProductController.getAll()
+	.then((products) => {
+		res.json(products);
+	})
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+});
+
 productRouter.get('/byId', function(req,res){
 	if(req.query.id === undefined){
 		console.log("No id_product sent");
