@@ -44,4 +44,56 @@ depositRouter.get('/byId', function(req,res){
 	})
 });
 
+depositRouter.post('/add',  function(req, res){
+	let name = req.body.name;
+	let adresse = req.body.adresse;
+	let coordX = req.body.coordX;
+	let coordY = req.body.coordY;
+	let tel = req.body.tel;
+	let isAssos = req.body.isAssos;
+	let admin = req.body.admin;
+	if(name === undefined || adresse === undefined || coordX === undefined || coordY === undefined || tel === undefined || isAssos === undefined || admin === undefined){
+		res.status(400).end();
+		return;
+	}
+	if(isAssos != 1 && isAssos != 0){
+		res.status(400).end();
+		return;
+	}
+	if(admin != 1 && admin != 0){
+		res.status(400).end();
+		return;
+	}
+	DepositController.add(name, adresse, coordX, coordY, tel, isAssos, admin)
+	.then((product) =>{
+		res.status(201).json(product);
+	})
+	.catch((err) =>{
+		res.status(500).end();
+	})
+});
+
+depositRouter.post('/update', function(req, res){
+	if(req.body.id === undefined){
+		res.status(400).end();
+		return;
+	}
+	ProductController.update(req.body.name, req.body.adresse, req.body.coordX, req.body.coordY, req.body.tel, req.body.isAssos, req.body.admin)
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+	res.status(204).end();
+});
+
+/*
+depositRouter.post('/delete', Admin.verifyToken, function(req, res){
+	if(req.body.id === undefined){
+		res.status(400).end();
+		return;
+	}
+	ProductController.delete(req.body.id)
+	res.status(204).end();
+});*/
+
 module.exports = depositRouter;
