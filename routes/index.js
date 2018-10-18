@@ -9,6 +9,7 @@ RouteManager.attach = function(app) {
     app.use('/', express.static(config.api.dir));
     app.use('/deposit', require('./deposit'));
     app.use('/product', require('./product'));
+    app.use('/category', require('./category'));
 };
 
 module.exports = RouteManager;
