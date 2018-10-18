@@ -11,6 +11,7 @@ RouteManager.attach = function(app) {
     app.use('/product', require('./product'));
     app.use('/category', require('./category'));
     app.use('/users', require('./user'));
+    app.use('/horaire', require('./horaire'));
 };
 
 module.exports = RouteManager;

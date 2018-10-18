@@ -155,7 +155,10 @@ DepositController.update = function(id, Name, Adresse, CoordX, CoordY, Tel, IsAs
 DepositController.delete = function(id){
   return Deposit.destroy({where: {Id_deposit: id}})
   .then(function(product){
-    Product.destroy({where: {Id_Stockage: id}});
+    Product.destroy({where: {Id_Stockage: id}})
+    .then(function(product){
+      Horaire.destroy({where: {Id_deposit: id}});
+    })
   });
 }
 
