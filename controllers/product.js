@@ -42,4 +42,17 @@ productController.getAll = function() {
   return Product.findAll(options);
 };
 
+productController.add = function(photo,description,Id_Categorie,Id_Stockage){
+  return Product.create({
+    Photo: photo,
+    Description: description,
+    Id_Categorie: Id_Categorie,
+    Id_Stockage : Id_Stockage
+  })
+}
+
+productController.delete = function(Id_Product){
+  return Product.destroy({where: {Id_Product: Id_Product}})
+}
+
 module.exports = productController;
