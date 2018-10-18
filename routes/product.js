@@ -93,7 +93,27 @@ productRouter.post('/delete', function(req, res){
 	res.status(204).end();
 });
 
+productRouter.post('/deleteByDeposit', function(req, res){
+	if(req.body.Id_Stockage === undefined){
+		res.status(400).end();
+		return;
+	}
+	ProductController.delete(req.body.Id_Stockage);
+	res.status(204).end();
+});
 
+productRouter.post('/update', function(req, res){
+	if(req.body.Id_Product === undefined){
+		res.status(400).end();
+		return;
+	}
+	ProductController.update(req.body.Id_Product, req.body.Photo, req.body.Description)
+	.catch((err) =>{
+		console.log(err);
+		res.status(500).end();
+	})
+	res.status(204).end();
+});
 
 
 

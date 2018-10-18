@@ -55,4 +55,19 @@ productController.delete = function(Id_Product){
   return Product.destroy({where: {Id_Product: Id_Product}})
 }
 
+productController.deleteByDeposit = function(Id_Stockage){
+  return Product.destroy({where: {Id_Stockage: Id_Stockage}})
+}
+
+productController.update = function(Id_Product, Photo, Description){
+  const options = {}
+  if(Photo !== undefined){
+    options.Photo = Photo;
+  }
+  if(Description !== undefined){
+    options.Description = Description;
+  }
+  return Product.update(options, {returning: true, where: {Id_Product: Id_Product}});
+}
+
 module.exports = productController;
