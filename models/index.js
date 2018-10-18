@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const config = require('../config');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const basename = path.basename(module.filename);
@@ -12,12 +13,12 @@ ModelIndex.getModel = function (modelName) {
     return this[modelName];
 };
 
-const sequelize = new Sequelize('u414096900_teach', 'u414096900_troot', 'rootroot', {
-  host: 'sql133.main-hosting.eu',
-  dialect: 'mysql',
-  port: 3306,
-  operatorsAliases: Op
-});
+const sequelize = new Sequelize(config.db.name, config.db.login, config.db.password, {
+    host: config.db.host,
+    dialect: config.db.dialect,
+    port: config.db.port,
+    operatorsAliases: Op
+  });
 
 fs.readdirSync(__dirname)
     .filter((file) => {
