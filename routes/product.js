@@ -70,12 +70,12 @@ productRouter.get('/byIdDeposit', function(req,res){
 
 
 productRouter.post('/', function(req, res){
-	if( req.body.Id_Categorie === undefined || req.body.Id_Stockage === undefined || req.body.Description === undefined){
+	if( req.body.Id_Categorie === undefined || req.body.Id_Stockage === undefined || req.body.Description === undefined || req.body.Name === undefined){
 		console.log("Need description and id_Categorie and id_Stockage to be add");
 		res.status(400).end();
 		return;
 	}
-	ProductController.add(req.body.Photo,req.body.Description, req.body.Id_Categorie, req.body.Id_Stockage)
+	ProductController.add(req.body.Name,req.body.Photo,req.body.Description, req.body.Id_Categorie, req.body.Id_Stockage)
 	.then((products) =>{
 		res.status(201).json(products);
 	})
@@ -107,7 +107,7 @@ productRouter.post('/update', function(req, res){
 		res.status(400).end();
 		return;
 	}
-	ProductController.update(req.body.Id_Product, req.body.Photo, req.body.Description)
+	ProductController.update(req.body.Name, req.body.Id_Product, req.body.Photo, req.body.Description)
 	.catch((err) =>{
 		console.log(err);
 		res.status(500).end();

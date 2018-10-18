@@ -42,8 +42,9 @@ productController.getAll = function() {
   return Product.findAll(options);
 };
 
-productController.add = function(photo,description,Id_Categorie,Id_Stockage){
+productController.add = function(name,photo,description,Id_Categorie,Id_Stockage){
   return Product.create({
+    Name: name,
     Photo: photo,
     Description: description,
     Id_Categorie: Id_Categorie,
@@ -59,13 +60,16 @@ productController.deleteByDeposit = function(Id_Stockage){
   return Product.destroy({where: {Id_Stockage: Id_Stockage}})
 }
 
-productController.update = function(Id_Product, Photo, Description){
+productController.update = function(Name,Id_Product, Photo, Description){
   const options = {}
   if(Photo !== undefined){
     options.Photo = Photo;
   }
   if(Description !== undefined){
     options.Description = Description;
+  }
+  if(Name !== undefined){
+    options.Name = Name;
   }
   return Product.update(options, {returning: true, where: {Id_Product: Id_Product}});
 }

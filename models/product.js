@@ -5,6 +5,10 @@ module.exports = function(sequelize, DataTypes){
 			primaryKey: true,
 			autoIncrement: true
 		},
+		Name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
 		Photo: {
 			type: DataTypes.STRING,
 			allowNull: false
