@@ -1,4 +1,5 @@
 const ModelIndex = require('../models');
+const func = require('../func');
 const fs = require('fs');
 const Deposit = ModelIndex.deposit;
 const Product = ModelIndex.product;
@@ -9,6 +10,12 @@ const DepositController = function(){};
 DepositController.getAll = function(X, Y) {
   const where = {};
   const options = {};
+
+  //tests
+  //console.log(func.toRadian(30));
+  //var distance = func.getDist(X, Y);
+
+  //console.log(distance);
   where.CoordX = {
     [Op.lt]: X+500,
     [Op.gt]: X-500,
