@@ -35,9 +35,14 @@ productController.getByIdDeposit = function(id) {
   return Product.findAll(options);
 };
 
-productController.getAll = function() {
+productController.getAll = function(search) {
   const where = {};
   const options = {};
+  if(search !== undefined){
+    where.name =  {
+    [Op.like]: search, 
+    } 
+  }
   options.where = where;
   return Product.findAll(options);
 };

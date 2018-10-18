@@ -10,7 +10,7 @@ productRouter.use(bodyParser.json());
 
 
 productRouter.get('/', function(req,res){
-	ProductController.getAll()
+	ProductController.getAll(req.query.search)
 	.then((products) => {
 		res.json(products);
 	})
