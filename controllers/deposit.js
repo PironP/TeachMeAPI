@@ -69,7 +69,7 @@ DepositController.add = function(Name, Adresse, CoordX, CoordY, Tel, IsAssos, ad
   });
 };
 
-/*ProductController.update = function(id, Name, Adresse, CoordX, CoordY, Tel, IsAssos, admin){
+DepositController.update = function(id, Name, Adresse, CoordX, CoordY, Tel, IsAssos, admin){
   const options = {}
   if(Name !== undefined){
     options.Name = Name;
@@ -77,19 +77,22 @@ DepositController.add = function(Name, Adresse, CoordX, CoordY, Tel, IsAssos, ad
   if(Adresse !== undefined){
     options.Adresse = Adresse;
   }
-  if(highlight !== undefined){
-    options.highlight = highlight;
+  if(CoordX !== undefined){
+    options.CoordX = CoordX;
   }
-  if(category !== undefined){
-    options.category = category;
+  if(CoordY !== undefined){
+    options.CoordY = CoordY;
   }
-  if(available !== undefined){
-    options.available = available;
+  if(Tel !== undefined){
+    options.Tel = Tel;
   }
-  if(id_promotion !== undefined){
-    options.id_promotion = id_promotion;
+  if(IsAssos !== undefined){
+    options.IsAssos = IsAssos;
+  }
+  if(admin !== undefined){
+    options.admin = admin;
   }
   return Product.update(options, {returning: true, where: {Id_deposit: id}});
-}*/
+}
 
 module.exports = DepositController;

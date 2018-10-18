@@ -78,7 +78,7 @@ depositRouter.post('/update', function(req, res){
 		res.status(400).end();
 		return;
 	}
-	ProductController.update(req.body.name, req.body.adresse, req.body.coordX, req.body.coordY, req.body.tel, req.body.isAssos, req.body.admin)
+	DepositController.update(req.body.name, req.body.adresse, req.body.coordX, req.body.coordY, req.body.tel, req.body.isAssos, req.body.admin)
 	.catch((err) =>{
 		console.log(err);
 		res.status(500).end();
