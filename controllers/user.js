@@ -1,6 +1,9 @@
 const passwordHash = require('password-hash');
+const jwt = require('jsonwebtoken');
 const ModelIndex = require('../models');
+const verifyToken =require('./verifyToken')
 const User = ModelIndex.user;
+var config = require('../config');
 
 const userController = function(){};
 
@@ -10,7 +13,7 @@ const userController = function(){};
  * @returns {Promise<T | never>}
  */
 userController.authotificate = function(email, password){
-    return User.findOne({
+     return User.findOne({
         where: {
             Email: email,
         }}
@@ -22,7 +25,9 @@ userController.authotificate = function(email, password){
         {
             return false;
         }
-        return user;
+        // create a token
+        var token = verifyToken.generateToken(user);
+        return ({ userID: user.Id_User, token: token });
     });
 }
 
@@ -39,7 +44,7 @@ userController.signIn = function(userParam){
         .then (function(user)
     {
         if (user === undefined || user === null) {
-            return User.create({
+            return user = User.create({
                 Email:     userParam.email,
                 Password:  passwordHash.generate(userParam.password),
                 LastName:  userParam.lastName,

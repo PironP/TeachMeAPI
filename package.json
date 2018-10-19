@@ -20,6 +20,7 @@
   "dependencies": {
     "bluebird": "^3.5.2",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
     "mysql2": "^1.6.1",
     "password-hash": "^1.2.2",
     "sequelize": "^4.39.1"

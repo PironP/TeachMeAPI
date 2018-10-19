@@ -15,5 +15,5 @@ config.db.password = 'rootroot';
 config.db.host = 'sql133.main-hosting.eu';
 config.db.dialect = 'mysql';
 config.db.port = '3306';
-
+config.secret = 'jsismagic',
 module.exports = config;

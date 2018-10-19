@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const controllers = require('../controllers');
+const verifyToken = require('../controllers/verifyToken')
 const UserController = controllers.userController;
 const userRouter = express.Router();
-
 userRouter.use(bodyParser.json());
 
 userRouter.post('/login', function(req,res){
@@ -32,7 +32,12 @@ userRouter.post('/signIn', function(req,res){
 });
 
 userRouter.post('/update', function(req,res){
-    console.log(req);
+    var authorisation = req.headers['authorisation ']
+    var userId = verifyToken.getUserId(authorisation)
+    console.log('userid= '+userId);
+    if(!userId){
+        return res.status(400).json({message: 'Token is absent or invalid'}).end();
+    }
     if(req.body.email === undefined || req.body.password === undefined || req.body.lastName === undefined || req.body.firstName === undefined || req.body.tel === undefined){
         return res.status(400).json({ message: 'All fields are required' }).end();
     }
@@ -45,15 +50,20 @@ userRouter.post('/update', function(req,res){
 });
 
 userRouter.get('/delete', function(req,res){
-    console.log(req);
-    if(req.query.userId === undefined){
-        return res.status(400).json({ message: 'user id is required' }).end();
+    var authorisation = req.headers['authorisation']
+    var userId = verifyToken.getUserId(authorisation)
+    if(userId === -1){
+        return res.status(400).json({message: 'Token is absent or invalid'}).end();
+    }else {
+        if (req.query.userId === undefined) {
+            return res.status(400).json({message: 'user id is required'}).end();
+        }
+        UserController.delete(req.query.userId)
+            .then(result => result ? res.json(result) : res.status(400).json({message: 'Error, id user not exist'}))
+            .catch(err => {
+                console.log(err);
+                res.status(400).end();
+            });
     }
-    UserController.delete(req.query.userId)
-        .then(result => result ? res.json(result) : res.status(400).json({ message: 'Error, id user not exist' }))
-        .catch(err => {
-            console.log(err);
-            res.status(400).end();
-        });
 });
 module.exports = userRouter;
