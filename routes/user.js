@@ -46,7 +46,6 @@ userRouter.post('/update', function(req,res){
             res.status(400).end();
         });
 });
-
 userRouter.get('/delete', function(req,res){
     var authorisation = req.headers['authorisation']
     var userId = verifyToken.getUserId(authorisation)
@@ -56,7 +55,7 @@ userRouter.get('/delete', function(req,res){
         if (req.query.userId === undefined) {
             return res.status(400).json({message: 'user id is required'}).end();
         }
-        UserController.delete(req.query.userId)
+        UserController.delete(userId)
             .then(result => result ? res.json(result) : res.status(400).json({message: 'Error, id user not exist'}))
             .catch(err => {
                 console.log(err);

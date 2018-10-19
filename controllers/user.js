@@ -21,11 +21,9 @@ userController.authontificate = function(email, password){
         }}
     )
         .then (function(user){
-            console.log(passwordHash.verify(password, user.Password));
-            if (user === undefined || user === null ||!passwordHash.verify(password, user.Password))
-          {
-               return false;
-           }
+            if (user === undefined || user === null || !passwordHash.verify(password, user.Password)){
+                   return false;
+            }
            // create a token
            var token = verifyToken.generateToken(user);
            return ({ userID: user.Id_User, token: token });
