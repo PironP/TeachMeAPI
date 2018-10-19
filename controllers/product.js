@@ -1,6 +1,7 @@
 const ModelIndex = require('../models');
 const fs = require('fs');
 const Product = ModelIndex.product;
+const Category = ModelIndex.category;
 const Op = ModelIndex.Sequelize.Op;
 
 const productController = function(){};
@@ -38,13 +39,36 @@ productController.getByIdDeposit = function(id) {
 productController.getAll = function(search) {
   const where = {};
   const options = {};
+  var result;
   if(search !== undefined){
     where.name =  {
     [Op.like]: "%"+search+"%", 
     } 
   }
   options.where = where;
-  return Product.findAll(options);
+  return Product.findAll(options)
+  .then((pro) => {
+        return Category.findAll()
+        .then((cat) => {
+          result = [];
+          for(i = 0; i < pro.length; i++){
+            result[i] = {};
+            result[i].Id_Product = pro[i].Id_Product;
+            result[i].Name = pro[i].Name;
+            result[i].Photo = pro[i].Photo;
+            result[i].Description = pro[i].Description;
+            result[i].Id_Categorie = pro[i].Id_Categorie;
+            result[i].Id_Stockage = pro[i].Id_Stockage;
+            for(j = 0; j < cat.length; j++){
+              if(result[i].Id_Categorie === cat[j].Id_category){
+                result[i].categorie = "";
+                result[i].categorie = cat[j].nom;
+              }              
+            }
+          }
+          return result;
+        })
+      })
 };
 
 productController.add = function(name,photo,description,Id_Categorie,Id_Stockage){
