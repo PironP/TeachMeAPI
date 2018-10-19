@@ -5,6 +5,7 @@ const verifyToken = require('../controllers/verifyToken')
 const UserController = controllers.userController;
 const userRouter = express.Router();
 userRouter.use(bodyParser.json());
+userRouter.use(bodyParser.urlencoded({ extended: true }));
 
 userRouter.post('/login', function(req,res){
     if(req.body.email === undefined || req.body.password === undefined){
