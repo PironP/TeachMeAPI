@@ -3,5 +3,5 @@ module.exports = {
 	  ProductController: require('./product'),
 	  categoryController: require('./category'),
 	  userController: require('./user'),
-	  userController: require('./horaire')
+	  horaireController: require('./horaire')
 }
